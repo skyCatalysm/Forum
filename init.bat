@@ -1,3 +1,4 @@
+composer require server
 composer require sec-checker --dev
 composer install
 composer require twig
