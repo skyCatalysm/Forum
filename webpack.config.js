@@ -8,6 +8,7 @@ Encore
 
 
     .enableVueLoader()
+    .enableSassLoader()
 ;
 
 module.exports = Encore.getWebpackConfig();

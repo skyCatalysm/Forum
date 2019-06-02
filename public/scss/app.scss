@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap');
+$family-primary: 'Montserrat', sans-serif;
+$navbar-background-color:#0D0F27;
+$navbar-item-color:#FFFFFF;
+$navbar-item-hover-background-color:#272C6D;
+$navbar-item-hover-color:$navbar-item-color;
+$primary:#1D2046;
+.forum-nav-font{
+  font-size: 2em;
+}
+.hompage-margin-top{
+  padding-top: 50px;
+}
+@media only screen and (max-width: 768px) {
+  .forum-nav-font{
+    font-size: 1em;
+  }
+  .hompage-margin-top{
+    padding-top: 20px;
+  }
+}
+@import "~bulma";
