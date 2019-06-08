@@ -5,9 +5,10 @@ Encore
     .setPublicPath('/build')
 
     .addEntry('app', './public/js/app.js')
+    .addEntry('sec_register','./public/js/register.js')
 
 
-    .enableVueLoader()
+    .enableSingleRuntimeChunk()
     .enableSassLoader()
 ;
 
