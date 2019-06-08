@@ -2,15 +2,14 @@
     <div class="container">
         <div class="column is-12">
             <div class="is-pulled-left">
-                <a class="navbar-item is-size-3-desktop is-size-4-tablet is-size-5-mobile is-marginless has-text-weight-semibold" href="#">
+                <a class="navbar-item is-size-3-desktop is-size-4-tablet is-size-5-mobile is-marginless has-text-weight-semibold" href="{{ path('forum') }}">
                     FORUM
                 </a>
             </div>
             <div class="is-pulled-right">
                 <div class="navbar-end">
-                    <a class="navbar-item is-size-3-desktop is-size-4-tablet is-size-5-mobile" href="#">
-                        Sign In
-                    </a>
+                    <a class="navbar-item is-size-3-desktop is-size-4-tablet is-size-5-mobile" href="{{ path('sec_login') }}">Sign In</a>
+                    <a class="navbar-item is-size-3-desktop is-size-4-tablet is-size-5-mobile" href="{{ path('sec_register') }}">Register</a>
                 </div>
             </div>
         </div>

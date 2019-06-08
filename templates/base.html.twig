@@ -2,15 +2,20 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>
+            {% block title %}
+                Welcome!
+            {% endblock %}
+        </title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-        {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
     <body>
-    {{ include('navbar.html.twig') }}
-    <div class="container is-mobile">
+    {% block navbar %}
+        {{ include('navbar.html.twig') }}
+    {% endblock %}
+    <div class="container">
         {% block body %}{% endblock %}
     </div>
         {% block javascripts %}
