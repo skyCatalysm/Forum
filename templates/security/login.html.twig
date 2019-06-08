@@ -10,8 +10,12 @@
 
 <div class="example-wrapper">
     <form action="" method="post">
-        <input type="email" placeholder="Email Address" name="password">
-        <input type="password" placeholder="Password" name="plainpassword">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input type="email" placeholder="Email Address" name="email">
+        <input type="password" placeholder="Password" name="password">
         <button type="submit">Login</button>
     </form>
 </div>
