@@ -282,171 +282,46 @@
                         </div>
                     </div>
                 </div>
-                <div class="column is-12 box mr-5 ml-5">
-                    <div class="columns is-mobile">
-                        <div class="column is-6">
-                            <a href="#">
-                                <span class="has-text-dark has-text-weight-semibold is-size-6-desktop is-size-7-mobile">
-                                    How big do you think earth is?
-                                </span>
-                            </a>
-                            <br>
-                            <span class="has-text-grey-light is-size-6-desktop is-size-7-mobile">
-                                Hi! Today we’re happy to announce the they had
-                                0 respect when playing against secret. Literally a...
-                            </span>
-                        </div>
-                        <div class="column is-3 has-text-centered">
-                            <span class="has-text-primary has-text-weight-semibold is-size-5-desktop is-size-6-mobile">25</span>
-                        </div>
-                        <div class="column is-3">
-                            <div class="columns is-mobile">
-                                <div class="column is-3-tablet is-5-mobile">
-                                    <figure class="image is-48x48"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                </div>
-                                <div class="column">
-                                    <span class="has-text-weight-semibold has-text-dark is-size-5-desktop is-size-7-mobile">
-                                        Watbe
+                {% for thread in threads %}
+                    <div class="column is-12 box mr-5 ml5">
+                        <div class="columns is-mobile">
+                            <div class="column is-6">
+                                <a href="#">
+                                    <span class="has-text-dark has-text-weight-semibold is-size-6-desktop is-size-7-mobile">
+                                        {{ thread.subject }}
                                     </span>
-                                    <br>
-                                    <small class="has-text-grey-light is-size-7">26 days ago</small>
+                                </a>
+                                <br>
+                                <span class="has-text-grey-light is-size-6-desktop is-size-7-mobile">
+                                    {{ thread.content }}
+                                </span>
+                            </div>
+
+                            <div class="column is-3 has-text-centered">
+                                <span class="has-text-primary has-text-weight-semibold is-size-5-desktop is-size-6-mobile">
+                                    {{ thread.replies|length }}
+                                </span>
+                            </div>
+
+                            <div class="column is-3">
+                                <div class="columns is-mobile">
+                                    <div class="column is-3-tablet is-5-mobile">
+                                        <figure class="image is-48x48"><img src="https://robohash.org/{{ thread.author.email }}?size=32x32"></figure>
+                                    </div>
+                                    <div class="column">
+                                    <span class="has-text-weight-semibold has-text-dark is-size-5-desktop is-size-7-mobile">
+                                        {{ thread.author.email }}
+                                    </span>
+                                        <br>
+                                        <small class="has-text-grey-light is-size-7">
+                                            {{ thread.createdAt|ago }}</small>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="column is-12 box mr-5 ml-5">
-                    <div class="columns is-mobile">
-                        <div class="column is-6">
-                            <a href="#">
-                                <span class="has-text-dark has-text-weight-semibold is-size-6-desktop is-size-7-mobile">
-                                    How big do you think earth is?
-                                </span>
-                            </a>
-                            <br>
-                            <span class="has-text-grey-light is-size-6-desktop is-size-7-mobile">
-                                Hi! Today we’re happy to announce the they had
-                                0 respect when playing against secret. Literally a...
-                            </span>
-                        </div>
-                        <div class="column is-3 has-text-centered">
-                            <span class="has-text-primary has-text-weight-semibold is-size-5-desktop is-size-6-mobile">25</span>
-                        </div>
-                        <div class="column is-3">
-                            <div class="columns is-mobile">
-                                <div class="column is-3-tablet is-5-mobile">
-                                    <figure class="image is-48x48"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                </div>
-                                <div class="column">
-                                    <span class="has-text-weight-semibold has-text-dark is-size-5-desktop is-size-7-mobile">
-                                        Watbe
-                                    </span>
-                                    <br>
-                                    <small class="has-text-grey-light is-size-7">26 days ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-12 box mr-5 ml-5">
-                    <div class="columns is-mobile">
-                        <div class="column is-6">
-                            <a href="#">
-                                <span class="has-text-dark has-text-weight-semibold is-size-6-desktop is-size-7-mobile">
-                                    How big do you think earth is?
-                                </span>
-                            </a>
-                            <br>
-                            <span class="has-text-grey-light is-size-6-desktop is-size-7-mobile">
-                                Hi! Today we’re happy to announce the they had
-                                0 respect when playing against secret. Literally a...
-                            </span>
-                        </div>
-                        <div class="column is-3 has-text-centered">
-                            <span class="has-text-primary has-text-weight-semibold is-size-5-desktop is-size-6-mobile">25</span>
-                        </div>
-                        <div class="column is-3">
-                            <div class="columns is-mobile">
-                                <div class="column is-3-tablet is-5-mobile">
-                                    <figure class="image is-48x48"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                </div>
-                                <div class="column">
-                                    <span class="has-text-weight-semibold has-text-dark is-size-5-desktop is-size-7-mobile">
-                                        Watbe
-                                    </span>
-                                    <br>
-                                    <small class="has-text-grey-light is-size-7">26 days ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-12 box mr-5 ml-5">
-                    <div class="columns is-mobile">
-                        <div class="column is-6">
-                            <a href="#">
-                                <span class="has-text-dark has-text-weight-semibold is-size-6-desktop is-size-7-mobile">
-                                    How big do you think earth is?
-                                </span>
-                            </a>
-                            <br>
-                            <span class="has-text-grey-light is-size-6-desktop is-size-7-mobile">
-                                Hi! Today we’re happy to announce the they had
-                                0 respect when playing against secret. Literally a...
-                            </span>
-                        </div>
-                        <div class="column is-3 has-text-centered">
-                            <span class="has-text-primary has-text-weight-semibold is-size-5-desktop is-size-6-mobile">25</span>
-                        </div>
-                        <div class="column is-3">
-                            <div class="columns is-mobile">
-                                <div class="column is-3-tablet is-5-mobile">
-                                    <figure class="image is-48x48"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                </div>
-                                <div class="column">
-                                    <span class="has-text-weight-semibold has-text-dark is-size-5-desktop is-size-7-mobile">
-                                        Watbe
-                                    </span>
-                                    <br>
-                                    <small class="has-text-grey-light is-size-7">26 days ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-12 box mr-5 ml-5">
-                    <div class="columns is-mobile">
-                        <div class="column is-6">
-                            <a href="#">
-                                <span class="has-text-dark has-text-weight-semibold is-size-6-desktop is-size-7-mobile">
-                                    How big do you think earth is?
-                                </span>
-                            </a>
-                            <br>
-                            <span class="has-text-grey-light is-size-6-desktop is-size-7-mobile">
-                                Hi! Today we’re happy to announce the they had
-                                0 respect when playing against secret. Literally a...
-                            </span>
-                        </div>
-                        <div class="column is-3 has-text-centered">
-                            <span class="has-text-primary has-text-weight-semibold is-size-5-desktop is-size-6-mobile">25</span>
-                        </div>
-                        <div class="column is-3">
-                            <div class="columns is-mobile">
-                                <div class="column is-3-tablet is-5-mobile">
-                                    <figure class="image is-48x48"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                </div>
-                                <div class="column">
-                                    <span class="has-text-weight-semibold has-text-dark is-size-5-desktop is-size-7-mobile">
-                                        Watbe
-                                    </span>
-                                    <br>
-                                    <small class="has-text-grey-light is-size-7">26 days ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
                 <div class="column is-12">
                     <nav class="pagination is-rounded is-centered" role="navigation" aria-label="pagination">
                         <a class="pagination-previous">Previous</a>
