@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,6 +37,22 @@ class User implements UserInterface
      * @Assert\NotBlank()
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Threads", mappedBy="author")
+     */
+    private $threads;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Replies", mappedBy="author")
+     */
+    private $replies;
+
+    public function __construct()
+    {
+        $this->threads = new ArrayCollection();
+        $this->replies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -116,5 +134,67 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Collection|Threads[]
+     */
+    public function getThreads(): Collection
+    {
+        return $this->threads;
+    }
+
+    public function addThread(Threads $thread): self
+    {
+        if (!$this->threads->contains($thread)) {
+            $this->threads[] = $thread;
+            $thread->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeThread(Threads $thread): self
+    {
+        if ($this->threads->contains($thread)) {
+            $this->threads->removeElement($thread);
+            // set the owning side to null (unless already changed)
+            if ($thread->getAuthor() === $this) {
+                $thread->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Replies[]
+     */
+    public function getReplies(): Collection
+    {
+        return $this->replies;
+    }
+
+    public function addReply(Replies $reply): self
+    {
+        if (!$this->replies->contains($reply)) {
+            $this->replies[] = $reply;
+            $reply->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReply(Replies $reply): self
+    {
+        if ($this->replies->contains($reply)) {
+            $this->replies->removeElement($reply);
+            // set the owning side to null (unless already changed)
+            if ($reply->getAuthor() === $this) {
+                $reply->setAuthor(null);
+            }
+        }
+
+        return $this;
     }
 }
