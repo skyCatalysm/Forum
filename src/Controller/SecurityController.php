@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserRegistrationFormType;
 use App\Security\LoginAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -38,16 +39,21 @@ class SecurityController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $data = $request->request->get('user_registration_form');
-            $user = new User();
-            $user->setEmail($data['email']);
-            $user->setPassword($encoder->encodePassword($user, $data['password']));
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            if(strcmp($data['password'], $data['password2']) == 0) {
+                $user = new User();
+                $user->setEmail($data['email']);
+                $user->setPassword($encoder->encodePassword($user, $data['password']));
 
-            $this->addFlash('success', "Account Registered Successfully!");
-            return $guardHandler->authenticateUserAndHandleSuccess($user,$request,$loginAuthenticator, 'main');
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                $this->addFlash('success', "Account Registered Successfully!");
+                return $guardHandler->authenticateUserAndHandleSuccess($user, $request, $loginAuthenticator, 'main');
+            }
+            $err = new FormError("Password Mismatch");
+            $form->get('password')->addError($err);
         }
 
         return $this->render('security/register.html.twig',[
