@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 500px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper { margin: 1em auto; max-width: 300px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px;}
     body{
         background-image: linear-gradient(180deg, #0e301a,#00b89c);
@@ -22,16 +22,22 @@
     {{ form_start(regForm) }}
 
     <div class="field">
-        {{ form_label(regForm.email) }}
+        {{ form_errors(regForm.email) }}
         <div class="control">
             {{ form_widget(regForm.email) }}
         </div>
     </div>
 
     <div class="field">
-        {{ form_label(regForm.password) }}
+        {{ form_errors(regForm.password) }}
         <div class="control">
             {{ form_widget(regForm.password) }}
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            {{ form_widget(regForm.password2) }}
         </div>
     </div>
 
@@ -44,14 +50,18 @@
         </div>
     </div>
 
-    <div class="field is-grouped">
+    <div class="field">
         <div class="control">
-            <button class="button is-link" type="submit">Submit</button>
-        </div>
-        <div class="control">
-            <button class="button is-text">Cancel</button>
+            <button type="submit" class="button is-link" style="width:100%">Register</button>
         </div>
     </div>
+
+    <div class="field">
+        <div class="control">
+            <a href="{{ path('sec_login') }}" class="button is-text" style="width:100%">Sign In</a>
+        </div>
+    </div>
+
     {{ form_end(regForm) }}
 </div>
 {% endblock %}
