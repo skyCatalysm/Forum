@@ -94,6 +94,10 @@ $spacer: 1rem !default;
 .mx-auto{
   justify-content: center;
 }
+.p-5{
+  padding: ($spacer * 1.25) !important;
+}
+
 .example-wrapper { margin: auto; max-width: 300px; }
 .example-wrapper code { background: #F5F5F5; padding: 2px 6px;}
 

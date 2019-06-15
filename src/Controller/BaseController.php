@@ -21,4 +21,14 @@ class BaseController extends AbstractController
             'threads' => $threads
         ]);
     }
+
+    /**
+     * @Route("/forum/{slug}", name="forum_content")
+     */
+    public function Content(EntityManagerInterface $em, $slug)
+    {
+        return $this->render('base/content.html.twig', [
+            'slug' => $slug
+        ]);
+    }
 }
