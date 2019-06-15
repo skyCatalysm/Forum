@@ -16,18 +16,21 @@ class UserRegistrationFormType extends AbstractType
         $builder
             ->add('email',EmailType::class,[
                 'attr' => [
-                    'placeholder' => 'Email Address'
+                    'placeholder' => 'Email Address',
+                    'class' => 'input is-rounded'
                 ]
             ])
             ->add('password',PasswordType::class,[
                 'attr' => [
-                    'placeholder' => 'Password'
+                    'placeholder' => 'Password',
+                    'class' => 'input is-rounded'
                 ]
             ])
             ->add('password2',PasswordType::class,[
                 'mapped' => false,
                 'attr' => [
-                    'placeholder' => 'Retype Password'
+                    'placeholder' => 'Retype Password',
+                    'class' => 'input is-rounded'
                 ]
             ])
         ;

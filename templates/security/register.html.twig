@@ -5,19 +5,14 @@
 {% endblock %}
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 300px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px;}
     body{
-        background-image: linear-gradient(180deg, #0e301a,#00b89c);
-        min-height: 768px;
-    }
-    label{
-        color:whitesmoke !important;
+        background-image: linear-gradient(180deg, #0D0F27,#272C6D);
+        height:100vh;
     }
 </style>
 
 <div class="example-wrapper">
-    <a href="/"><h1 style="text-align: center; color:whitesmoke; font-size: 60px;">Forum</h1></a>
+    <a href="{{ path('forum') }}"><h1 class="has-text-centered is-size-1 has-text-white has-text-weight-bold">Forum</h1></a>
     <h2 style="text-align: center; color:whitesmoke; font-size: 48px;">Sign Up</h2>
     {{ form_start(regForm) }}
 
@@ -42,23 +37,24 @@
     </div>
 
     <div class="field">
-        <div class="control">
+        <div class="control is-rounded">
             <label class="checkbox label">
                 <input type="checkbox" name="agreed">
-                I agree to the <a href="#">terms and conditions</a>
+                <a href="#"><u>I agree to the terms and conditions</u></a>
             </label>
         </div>
     </div>
 
     <div class="field">
         <div class="control">
-            <button type="submit" class="button is-link" style="width:100%">Register</button>
+            <button type="submit" class="is-rounded button is-light is-outlined" style="width:100%">Register</button>
         </div>
     </div>
 
+
     <div class="field">
-        <div class="control">
-            <a href="{{ path('sec_login') }}" class="button is-text" style="width:100%">Sign In</a>
+        <div class="control has-text-centered">
+            <a href="{{ path('sec_login') }}" class="is-text has-text-white" style="width:100%"><u>Sign In</u></a>
         </div>
     </div>
 
