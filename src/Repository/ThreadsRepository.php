@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Threads;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -17,6 +18,28 @@ class ThreadsRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Threads::class);
+    }
+
+    /**
+     * @param string|null $term
+     * @return QueryBuilder
+     */
+    public function getWithSearchQueryBuilder(?string $term): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->innerJoin('t.author', 'a')
+            ->addSelect('a');
+
+        if ($term) {
+            $qb->andWhere('t.content LIKE :term OR t.subject LIKE :term OR a.email LIKE :term')
+                ->setParameter('term', '%' . $term . '%')
+            ;
+        }
+
+        return $qb
+            ->orderBy('t.createdAt', 'DESC')
+            ;
+
     }
 
     // /**
