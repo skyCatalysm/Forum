@@ -136,6 +136,7 @@
                         Categories
                     </span>
                 </div>
+
                 <div class="column is-12 mb-2 category-item has-background-grey-lighter">
                     <a href="#">
                         <div class="columns is-mobile">
@@ -150,90 +151,23 @@
                         </div>
                     </a>
                 </div>
+
+                {% for category in categories %}
                 <div class="column is-12 mb-2 category-item">
                     <a href="#">
                         <div class="columns is-mobile">
                             <div class="column is-2">
-                                <figure class="image is-32x32"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
+                                <figure class="image is-32x32"><img src="https://robohash.org/{{ category.imageFilename }}?size=32x32&set=set3"></figure>
                             </div>
                             <div class="column">
                                 <span class="has-text-weight-semibold has-text-primary is-size-5-desktop is-size-6-tablet has-text-centered-mobile">
-                                    Anime
+                                    {{ category.name }}
                                 </span>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="column is-12 category-item mb-2">
-                    <a href="#">
-                        <div class="columns is-mobile">
-                            <div class="column is-2">
-                                <figure class="image is-32x32"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                            </div>
-                            <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-5-desktop is-size-6-tablet has-text-centered-mobile">
-                                    Waifu
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="column is-12 category-item mb-2">
-                    <a href="#">
-                        <div class="columns is-mobile">
-                            <div class="column is-2">
-                                <figure class="image is-32x32"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                            </div>
-                            <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-5-desktop is-size-6-tablet has-text-centered-mobile">
-                                    Dota
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="column is-12 category-item mb-2">
-                    <a href="#">
-                        <div class="columns is-mobile">
-                            <div class="column is-2">
-                                <figure class="image is-32x32"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                            </div>
-                            <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-5-desktop is-size-6-tablet has-text-centered-mobile">
-                                    Lol
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="column is-12 category-item mb-2">
-                    <a href="#">
-                        <div class="columns is-mobile">
-                            <div class="column is-2">
-                                <figure class="image is-32x32"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                            </div>
-                            <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-5-desktop is-size-6-tablet has-text-centered-mobile">
-                                    Cars
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="column is-12 category-item mb-2">
-                    <a href="#">
-                        <div class="columns is-mobile">
-                            <div class="column is-2">
-                                <figure class="image is-32x32"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                            </div>
-                            <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-5-desktop is-size-6-tablet has-text-centered-mobile">
-                                    Tuna
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                {% endfor %}
             </div>
         </div>
         {#Forum Component#}

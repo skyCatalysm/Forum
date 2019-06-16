@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Categories;
 use App\Entity\Threads;
+use App\Repository\CategoriesRepository;
 use App\Repository\ThreadsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -15,7 +17,7 @@ class BaseController extends AbstractController
     /**
      * @Route("/", name="forum")
      */
-    public function index(ThreadsRepository $repository, Request $request, PaginatorInterface $paginator)
+    public function index(ThreadsRepository $repository, Request $request, PaginatorInterface $paginator, CategoriesRepository $categoriesRepository)
     {
         $q = $request->query->get('q');
 
@@ -33,21 +35,28 @@ class BaseController extends AbstractController
             'rounded' => true,
         ]);
 
+
+        $categories = $categoriesRepository->findAll();
+
         return $this->render('base/index.html.twig', [
-            'threads' => $pagination
+            'threads' => $pagination,
+            'categories' => $categories,
         ]);
     }
 
     /**
      * @Route("/forum/{slug}", name="forum_content")
      */
-    public function Content(EntityManagerInterface $em, $slug)
+    public function Content(EntityManagerInterface $em, $slug, CategoriesRepository $categoriesRepository)
     {
         $repo = $em->getRepository(Threads::class);
         $threads = $repo->findOneBy(['subject' => $slug]);
+
+        $categories = $categoriesRepository->findAll();
         return $this->render('base/content.html.twig', [
             'slug' => $slug,
-            'threads' => $threads
+            'threads' => $threads,
+            'categories' => $categories,
         ]);
     }
 }

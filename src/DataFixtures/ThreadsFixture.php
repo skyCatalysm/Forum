@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Categories;
 use App\Entity\Threads;
 use App\Entity\User;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -18,6 +19,7 @@ class ThreadsFixture extends BaseFixture implements DependentFixtureInterface
             $thread->setUpdatedAt(new \DateTime());
 
             $thread->setAuthor($this->getRandomReference(User::class));
+            $thread->setCategory($this->getRandomReference(Categories::class));
         });
 
         $manager->flush();

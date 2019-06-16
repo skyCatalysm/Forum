@@ -42,6 +42,12 @@ class Threads
      */
     private $replies;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categories", inversedBy="threads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
     public function __construct()
     {
         $this->replies = new ArrayCollection();
@@ -115,6 +121,18 @@ class Threads
                 $reply->setThread(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Categories
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Categories $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

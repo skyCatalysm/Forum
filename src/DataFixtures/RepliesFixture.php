@@ -15,7 +15,7 @@ class RepliesFixture extends BaseFixture implements DependentFixtureInterface
         $this->createMany(Replies::class,100,function(Replies $reply, $count){
             $reply->setAuthor($this->getRandomReference(User::class));
             $reply->setThread($this->getRandomReference(Threads::class));
-            $reply->setContent($this->faker->paragraph);
+            $reply->setContent($this->faker->text);
             $reply->setCreatedAt(new \DateTime());
             $reply->setUpdatedAt(new \DateTime());
         });
