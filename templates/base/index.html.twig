@@ -1,7 +1,20 @@
 {% extends 'base/__header.html.twig' %}
 {% block thread %}
-
     <div class="column is-12">
+        <div class="columns is-mobile">
+            <div class="column is-12">
+                <div class="field has-addons is-pulled-right">
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Search...">
+                    </div>
+                    <div class="control">
+                        <a class="button is-info">
+                            Search
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="columns is-mobile">
             <div class="column is-6">
                 <span class="has-text-primary has-text-weight-semibold is-size-5-desktop is-size-6-mobile">Topic</span>
@@ -20,7 +33,7 @@
         <div class="column is-12 box mr-5 ml5">
             <div class="columns is-mobile">
                 <div class="column is-6">
-                    <a href="#">
+                    <a href="{{ path('forum_content', {slug: thread.subject}) }}">
                                     <span class="has-text-dark has-text-weight-semibold is-size-6-desktop is-size-7-mobile">
                                         {{ thread.subject }}
                                     </span>

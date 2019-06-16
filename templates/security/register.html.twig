@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SecurityController!{% endblock %}
+{% block title %}Sign Up!{% endblock %}
 {% block navbar %}
 {% endblock %}
 {% block body %}
@@ -17,14 +17,18 @@
     {{ form_start(regForm) }}
 
     <div class="field">
-        {{ form_errors(regForm.email) }}
+        {% if form_errors(regForm.email) %}
+        <div class="notification is-danger">{{ form_errors(regForm.email) }}</div>
+        {% endif %}
         <div class="control">
             {{ form_widget(regForm.email) }}
         </div>
     </div>
 
     <div class="field">
-        {{ form_errors(regForm.password) }}
+        {% if form_errors(regForm.password) %}
+        <div class="notification is-danger">{{ form_errors(regForm.password) }}</div>
+        {% endif %}
         <div class="control">
             {{ form_widget(regForm.password) }}
         </div>

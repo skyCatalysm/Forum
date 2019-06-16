@@ -27,8 +27,11 @@ class BaseController extends AbstractController
      */
     public function Content(EntityManagerInterface $em, $slug)
     {
+        $repo = $em->getRepository(Threads::class);
+        $threads = $repo->findOneBy(['subject' => $slug]);
         return $this->render('base/content.html.twig', [
-            'slug' => $slug
+            'slug' => $slug,
+            'threads' => $threads
         ]);
     }
 }

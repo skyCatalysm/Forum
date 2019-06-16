@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SecurityController!{% endblock %}
+{% block title %}Sign In!{% endblock %}
 {% block navbar %}
 {% endblock %}
 {% block body %}
@@ -13,11 +13,12 @@
 
 <div class="example-wrapper">
     <form action="" method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
         <a href="{{ path('forum') }}"><h1 class="has-text-centered is-size-1 has-text-white has-text-weight-bold">Forum</h1></a>
         <h2 style="text-align: center; color:whitesmoke; font-size: 48px;">Sign In</h2>
+
+        {% if error %}
+            <div class="notification is-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
