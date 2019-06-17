@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Categories
 {
+    static $last_id = 0;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -41,6 +42,7 @@ class Categories
     public function __construct()
     {
         $this->threads = new ArrayCollection();
+        $this->getId();
     }
 
     public function getId(): ?int
@@ -113,5 +115,10 @@ class Categories
         }
 
         return $this;
+    }
+
+    public function getLastId():int
+    {
+        return self::$last_id;
     }
 }

@@ -24,7 +24,7 @@ class ThreadsRepository extends ServiceEntityRepository
      * @param string|null $term
      * @return QueryBuilder
      */
-    public function getWithSearchQueryBuilder(?string $term): QueryBuilder
+    public function getWithSearchQueryBuilder($category, ?string $term): QueryBuilder
     {
         $qb = $this->createQueryBuilder('t')
             ->innerJoin('t.author', 'a')
@@ -35,6 +35,10 @@ class ThreadsRepository extends ServiceEntityRepository
                 ->setParameter('term', '%' . $term . '%')
             ;
         }
+
+        $qb->andWhere('t.category = :category')
+            ->setParameter('category',$category)
+            ;
 
         return $qb
             ->orderBy('t.createdAt', 'DESC')

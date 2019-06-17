@@ -15,13 +15,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class BaseController extends AbstractController
 {
     /**
-     * @Route("/", name="forum")
+     * @Route("/")
      */
-    public function index(ThreadsRepository $repository, Request $request, PaginatorInterface $paginator, CategoriesRepository $categoriesRepository)
+    public function home_redirect(){
+        return $this->redirectToRoute('forum',['category'=>'0']);
+    }
+
+    /**
+     * @Route("/{category}", name="forum")
+     */
+    public function index($category, ThreadsRepository $repository, Request $request, PaginatorInterface $paginator, CategoriesRepository $categoriesRepository)
     {
+        $category_image = 0;
+        $categories = $categoriesRepository->findAll();
+        $last_id = $categories[0]->getId();
+        if(!$category){
+            $category = $categoriesRepository->findOneBy(['id'=>$last_id])->getName();
+        }
+
+        if($category){
+            $category_image = $categoriesRepository->findOneBy(['name' => $category])->getImageFilename();
+        }
+
         $q = $request->query->get('q');
 
-        $queryBuilder = $repository->getWithSearchQueryBuilder($q);
+        $category_id = $categoriesRepository->findOneBy(['name' => $category]);
+        $queryBuilder = $repository->getWithSearchQueryBuilder($category_id, $q);
 
 
         $pagination = $paginator->paginate(
@@ -36,11 +55,13 @@ class BaseController extends AbstractController
         ]);
 
 
-        $categories = $categoriesRepository->findAll();
+
 
         return $this->render('base/index.html.twig', [
             'threads' => $pagination,
             'categories' => $categories,
+            'selected_category' => $category,
+            'selected_category_image' => $category_image,
         ]);
     }
 
@@ -50,13 +71,20 @@ class BaseController extends AbstractController
     public function Content(EntityManagerInterface $em, $slug, CategoriesRepository $categoriesRepository)
     {
         $repo = $em->getRepository(Threads::class);
+        /**
+         * @var Threads $threads
+         */
         $threads = $repo->findOneBy(['subject' => $slug]);
 
         $categories = $categoriesRepository->findAll();
+        $category = $categoriesRepository->findOneBy(['id' => $threads->getCategory()]);
+        $category_image = $category->getImageFilename();
         return $this->render('base/content.html.twig', [
             'slug' => $slug,
             'threads' => $threads,
             'categories' => $categories,
+            'selected_category' => $category->getName(),
+            'selected_category_image' => $category_image,
         ]);
     }
 }
