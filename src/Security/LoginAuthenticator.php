@@ -80,9 +80,4 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
         }
         return new RedirectResponse($this->router->generate('forum'));
     }
-
-    public function start(Request $request, AuthenticationException $authException = null)
-    {
-        return new RedirectResponse($this->router->generate('sec_login'));
-    }
 }

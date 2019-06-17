@@ -12,6 +12,9 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  */
 class Threads
 {
+    /**
+     *
+     */
     use TimestampableEntity;
 
     /**

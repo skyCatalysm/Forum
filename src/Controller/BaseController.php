@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Categories;
 use App\Entity\Threads;
+use App\Form\ThreadsFormType;
 use App\Repository\CategoriesRepository;
 use App\Repository\ThreadsRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,23 +16,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BaseController extends AbstractController
 {
-    /**
-     * @Route("/")
-     */
-    public function home_redirect(){
-        return $this->redirectToRoute('forum',['category'=>'0']);
-    }
+
 
     /**
-     * @Route("/{category}", name="forum")
+     * @Route("/", name="forum")
      */
-    public function index($category, ThreadsRepository $repository, Request $request, PaginatorInterface $paginator, CategoriesRepository $categoriesRepository)
+    public function index(ThreadsRepository $repository, Request $request, PaginatorInterface $paginator, CategoriesRepository $categoriesRepository)
     {
-        $category_image = 0;
         $categories = $categoriesRepository->findAll();
-        $last_id = $categories[0]->getId();
+
+        $first_id = $categories[0]->getId();
+
+        $category = $request->query->get('category');
+
         if(!$category){
-            $category = $categoriesRepository->findOneBy(['id'=>$last_id])->getName();
+            $category = $categoriesRepository->findOneBy(['id'=>$first_id])->getName();
         }
 
         if($category){
@@ -66,7 +66,7 @@ class BaseController extends AbstractController
     }
 
     /**
-     * @Route("/forum/{slug}", name="forum_content")
+     * @Route("/forum/{category}/{slug}", name="forum_content")
      */
     public function Content(EntityManagerInterface $em, $slug, CategoriesRepository $categoriesRepository)
     {
@@ -74,7 +74,7 @@ class BaseController extends AbstractController
         /**
          * @var Threads $threads
          */
-        $threads = $repo->findOneBy(['subject' => $slug]);
+        $threads = $repo->findOneBy(['id' => $slug]);
 
         $categories = $categoriesRepository->findAll();
         $category = $categoriesRepository->findOneBy(['id' => $threads->getCategory()]);
@@ -85,6 +85,57 @@ class BaseController extends AbstractController
             'categories' => $categories,
             'selected_category' => $category->getName(),
             'selected_category_image' => $category_image,
+        ]);
+    }
+
+
+    /**
+     * @Route("/forum/create", name="forum_create")
+     */
+    public function CreateThread(Request $request, EntityManagerInterface $em, CategoriesRepository $categoriesRepository,UserRepository $userRepository)
+    {
+        $categories = $categoriesRepository->findAll();
+
+        $first_id = $categories[0]->getId();
+
+        $category = $request->query->get('category');
+
+        if(!$category){
+            $category = $categoriesRepository->findOneBy(['id'=>$first_id])->getName();
+        }
+
+        if($category){
+            $category_image = $categoriesRepository->findOneBy(['name' => $category])->getImageFilename();
+        }
+
+        $form =$this->createForm(ThreadsFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $user = $userRepository->findOneBy(['id'=>'1']);
+            $threadCategory = $categoriesRepository->findOneBy(['name'=>$category]);
+
+
+            $threadModel = $form->getData();
+            $thread = new Threads();
+            $thread->setAuthor($user)
+                ->setSubject($threadModel->getSubject())
+                ->setContent($threadModel->getContent())
+                ->setCategory($threadCategory);
+
+            $em->persist($thread);
+            $em->flush();
+
+            $this->addFlash('success', 'New thread successfully created!');
+
+            return $this->redirectToRoute('forum', ['category'=> $category]);
+        }
+
+        return $this->render('base/create.html.twig', [
+            'categories' => $categories,
+            'selected_category' => $category,
+            'selected_category_image' => $category_image,
+            'threadForm' => $form->createView()
         ]);
     }
 }

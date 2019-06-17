@@ -1,0 +1,11 @@
+{% extends 'base/__header.html.twig' %}
+{% block thread %}
+    {% form_theme threadForm 'form_theme/bulma_theme.html.twig' %}
+    <div class="column is-12 box has-background-white-bis">
+    {{ form_start(threadForm) }}
+    {{ form_row(threadForm.subject)}}
+    {{ form_row(threadForm.content)}}
+        <button class="button is-primary" type="submit">submit</button>
+    {{ form_end(threadForm) }}
+    </div>
+{% endblock %}
