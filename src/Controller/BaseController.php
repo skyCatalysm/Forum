@@ -112,7 +112,7 @@ class BaseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            $user = $userRepository->findOneBy(['id'=>'1']);
+            $user = $this->getUser();
             $threadCategory = $categoriesRepository->findOneBy(['name'=>$category]);
 
 

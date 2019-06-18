@@ -80,4 +80,6 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
         }
         return new RedirectResponse($this->router->generate('forum'));
     }
+
+
 }
