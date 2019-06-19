@@ -1,0 +1,11 @@
+{% extends 'base/__header.html.twig' %}
+{% block thread %}
+    {% form_theme categoryForm 'form_theme/bulma_theme.html.twig' %}
+    <div class="column is-12 box has-background-white-bis ml-5 mb-5 mr-5">
+        <h1 class="is-size-4 mb-5 mt-3 has-text-weight-bold">Create Category</h1>
+        {{ form_start(categoryForm) }}
+        {{ form_widget(categoryForm) }}
+        <button class="button is-primary" type="submit">submit</button>
+        {{ form_end(categoryForm) }}
+    </div>
+{% endblock %}

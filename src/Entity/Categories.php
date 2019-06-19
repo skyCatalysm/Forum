@@ -20,7 +20,7 @@ class Categories
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $name;
 

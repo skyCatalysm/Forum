@@ -62,11 +62,11 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="sec_logout")
+     * @Route("/logout", name="app_logout")
      */
     public function security_logout()
     {
-
+        throw new \Exception('Will be intercepted before getting here');
     }
 
 }

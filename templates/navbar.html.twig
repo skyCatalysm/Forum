@@ -8,8 +8,21 @@
             </div>
             <div class="is-pulled-right">
                 <div class="navbar-end">
-                    <a class="navbar-item is-size-3-desktop is-size-4-tablet is-size-5-mobile" href="{{ path('sec_login') }}">Sign In</a>
-                    <a class="navbar-item is-size-3-desktop is-size-4-tablet is-size-5-mobile" href="{{ path('sec_register') }}">Register</a>
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="columns is-mobile is-hidden-touch mr-5">
+                            <div class="column">
+                                <figure class="is-rounded image is-48x48  mt-3">
+                                    <img class="is-rounded has-background-black-ter"  src="https://robohash.org/{{ app.user.username }}?size=48x48">
+                                </figure>
+                            </div>
+                            <div class="column mt-4 navbar-item is-size-5-desktop is-size-7-tablet">
+                                {{ app.user.username }}
+                            </div>
+                        </div>
+                        <a class="button mt-3 mb-3 is-outlined is-light is-size-6-desktop is-size-6-tablet is-size-7-mobile" href="{{ path('app_logout') }}">Logout</a>
+                    {% else %}
+                        <a class="navbar-item is-size-3-desktop is-size-4-tablet is-size-5-mobile" href="{{ path('sec_login') }}">Sign In</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

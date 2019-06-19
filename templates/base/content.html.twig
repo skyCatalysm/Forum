@@ -1,4 +1,7 @@
 {% extends 'base/__header.html.twig' %}
+{% block title %}
+    {{ threads.subject }}
+{% endblock %}
 {% block thread %}
     <div class="column is-12">
         <span class="has-text-primary has-text-weight-semibold">{{ threads.subject }}</span>
@@ -6,8 +9,8 @@
     <div class="column is-12 has-background-primary mr-5 ml-5 p-5 mb-5">
         <div class="columns is-mobile">
             <div class="column is-1-desktop is-1-tablet is-2-mobile">
-                <figure class="image is-64x64 has-background-grey-lighter">
-                    <img src="https://robohash.org/{{ threads.author.email }}?size=64x64">
+                <figure class="image is-64x64 has-background-black-bis">
+                    <img class="flip-image" src="https://robohash.org/{{ threads.author.email }}?size=64x64">
                 </figure>
             </div>
             <div class="column has-text-white">
@@ -25,8 +28,8 @@
         {% for reply in threads.replies %}
         <div class="columns is-mobile">
             <div class="column is-1-desktop is-1-tablet is-2-mobile">
-                <figure class="image is-64x64 has-background-grey-lighter">
-                    <img src="https://robohash.org/{{ reply.author }}?size=64x64">
+                <figure class="image is-64x64 has-background-black-bis">
+                    <img class="flip-image" src="https://robohash.org/{{ reply.author }}?size=64x64">
                 </figure>
             </div>
             <div class="column has-text-white">
@@ -41,5 +44,30 @@
             </div>
         </div>
         {% endfor %}
+        {% if is_granted('ROLE_USER') %}
+        <div class="columns is-mobile">
+            <div class="column is-1-desktop is-1-tablet is-2-mobile">
+                <figure class="image is-64x64 has-background-black-bis">
+                    <img class="flip-image" src="https://robohash.org/{{ app.user.username }}?size=64x64">
+                </figure>
+            </div>
+            <div class="column has-text-white">
+                <div>
+                    <span class="has-text-weight-bold">{{ app.user.username }}</span>
+                </div>
+                <div class="has-background-grey-lighter">
+                    <div class="p-5">
+                        {% if replyForm is defined %}
+                            {% form_theme replyForm 'form_theme/bulma_theme.html.twig' %}
+                                {{ form_start(replyForm) }}
+                                {{ form_widget(replyForm) }}
+                                <button class="button is-primary" type="submit">submit</button>
+                                {{ form_end(replyForm) }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 {% endblock %}

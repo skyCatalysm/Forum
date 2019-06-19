@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}
+Forum | {{ selected_category }}
+{% endblock %}
 
 {% block body %}
     <div class="dropdown is-hoverable mt-3 is-flex-mobile is-hidden-desktop">
@@ -16,110 +18,28 @@
             <div class="dropdown-content">
                 <div class="dropdown-item">
                     <div class="columns is-multiline">
-                        <div class="column is-12 mb-2 category-item has-background-grey-lighter">
-                            <a href="#">
-                                <div class="columns is-mobile">
-                                    <div class="column is-2">
-                                        <figure class="image is-24x24"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                    </div>
-                                    <div class="column">
+                        {% for category in categories %}
+                            {% if selected_category == category.name %}
+                                <div class="column is-12 mb-2 category-item has-background-grey-lighter">
+                            {% else %}
+                                <div class="column is-12 mb-2 category-item ">
+                            {% endif %}
+                                    <a href="{{ path('forum',{category:category.name}) }}">
+                                        <div class="columns is-mobile">
+                                            <div class="column is-2">
+                                                <figure class="image is-24x24">
+                                                    <img style="height: 25px" src="{{ category.imageFilename }}">
+                                                </figure>
+                                            </div>
+                                            <div class="column">
                                         <span class="has-text-weight-semibold has-text-primary is-size-7">
-                                            Hot
+                                            {{ category.name }}
                                         </span>
-                                    </div>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
-
-                        <div class="column is-12 mb-2 category-item">
-                            <a href="#">
-                                <div class="columns is-mobile">
-                                    <div class="column is-2">
-                                        <figure class="image is-24x24"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                    </div>
-                                    <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-7">
-                                    Anime
-                                </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="column is-12 mb-2 category-item">
-                            <a href="#">
-                                <div class="columns is-mobile">
-                                    <div class="column is-2">
-                                        <figure class="image is-24x24"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                    </div>
-                                    <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-7">
-                                    Waifu
-                                </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="column is-12 mb-2 category-item">
-                            <a href="#">
-                                <div class="columns is-mobile">
-                                    <div class="column is-2">
-                                        <figure class="image is-24x24"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                    </div>
-                                    <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-7">
-                                    Dota
-                                </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="column is-12 mb-2 category-item">
-                            <a href="#">
-                                <div class="columns is-mobile">
-                                    <div class="column is-2">
-                                        <figure class="image is-24x24"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                    </div>
-                                    <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-7">
-                                    Lol
-                                </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="column is-12 mb-2 category-item">
-                            <a href="#">
-                                <div class="columns is-mobile">
-                                    <div class="column is-2">
-                                        <figure class="image is-24x24"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                    </div>
-                                    <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-7">
-                                    Cars
-                                </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="column is-12 mb-2 category-item">
-                            <a href="#">
-                                <div class="columns is-mobile">
-                                    <div class="column is-2">
-                                        <figure class="image is-24x24"><img src="https://bulma.io/images/placeholders/32x32.png"></figure>
-                                    </div>
-                                    <div class="column">
-                                <span class="has-text-weight-semibold has-text-primary is-size-7">
-                                    Tuna
-                                </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -135,6 +55,11 @@
                     <span class="has-text-grey-light is-size-5-desktop is-size-6-tablet has-text-centered-mobile">
                         Categories
                     </span>
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('category_create',{category:selected_category} ) }}" class="button is-dark is-outlined is-small is-pulled-right has-text-weight-bold">
+                        <i class="fa fa-plus"></i> Add
+                    </a>
+                    {% endif %}
                 </div>
 
                 {% for category in categories %}
@@ -145,8 +70,8 @@
                     {% endif %}
                     <a href="{{ path('forum',{category:category.name}) }}">
                         <div class="columns is-mobile">
-                            <div class="column is-2">
-                                <figure class="image is-32x32"><img src="https://robohash.org/{{ category.imageFilename }}?size=32x32&set=set3"></figure>
+                            <div class="column is-3">
+                                <figure class="image is-48x48 has-background-grey-dark"><img style="height: 100%" src="{{ category.imageFilename }}"></figure>
                             </div>
                             <div class="column">
                                 <span class="has-text-weight-semibold has-text-primary is-size-5-desktop is-size-6-tablet has-text-centered-mobile">
@@ -166,12 +91,12 @@
                     <div class="level is-mobile is-hidden-tablet">
                         <div class="level-item has-text-centered">
                             <figure class="image is-128x128">
-                                <img src="https://robohash.org/{{ selected_category_image }}?size=128x128&set=set3">
+                                <img style="height: 120px;" src="{{ selected_category_image }}">
                             </figure>
                         </div>
                     </div>
                     <figure class="image is-128x128 is-hidden-mobile">
-                        <img src="https://robohash.org/{{ selected_category_image }}?size=128x128&set=set3">
+                        <img style="height: 120px;" src="{{ selected_category_image }}">
                     </figure>
                 </div>
                 <div class="column">

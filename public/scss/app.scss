@@ -98,6 +98,13 @@ $spacer: 1rem !default;
   padding: ($spacer * 1.25) !important;
 }
 
+.flip-image{
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
 .example-wrapper {
   margin: auto; max-width: 300px;
 }
